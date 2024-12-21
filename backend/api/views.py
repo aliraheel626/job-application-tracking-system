@@ -15,8 +15,9 @@ class ApplicationListCreateView(generics.ListCreateAPIView):
         return Application.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        # Automatically associate the application with the logged-in user
-        serializer.save(user=self.request.user)
+        if serializer.is_valid():
+            # Automatically associate the application with the logged-in user
+            serializer.save(user=self.request.user)
 
 
 class ApplicationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):

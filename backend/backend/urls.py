@@ -18,7 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from api.views import CreateUserView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/user/register/", CreateUserView.as_view(), name="register"),
@@ -26,4 +28,9 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("api.urls")),
-]
+    # DRF Spectacular schema and UI views
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('docs/',
+         SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('silk/', include('silk.urls', namespace='silk'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
