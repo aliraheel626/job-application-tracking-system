@@ -18,9 +18,8 @@ class ApplicationSerializer(serializers.ModelSerializer):
         read_only_fields = ['created_at', 'updated_at', 'cv_url', 'user']
 
     def get_cv_url(self, obj):
-        request = self.context.get('request')
-        if obj.cv and request:
-            return request.build_absolute_uri(obj.cv.url)
+        if obj.cv:
+            return obj.cv.url  # Return only the relative URL
         return None
 
     def validate_cv(self, value):
