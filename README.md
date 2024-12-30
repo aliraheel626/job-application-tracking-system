@@ -9,7 +9,6 @@ The Job Application Tracking System is a tool designed to help users manage and 
 - Add new job applications with details such as company name, position, application date, and status.
 - Update the status of existing applications (e.g., applied, interview, offer, rejected).
 - View a list of all job applications with their current status.
-- Filter and search job applications based on various criteria.
 
 ## Installation
 
